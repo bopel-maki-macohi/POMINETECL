@@ -36,8 +36,7 @@ class PlayState extends FlxState
 		saleswoman_text = new FlxTypeText(0, 0, 0, 'Superman', 16);
 		add(saleswoman_text);
 
-		saleswoman_text.resetText('Supperman');
-		saleswoman_text.start(0.05);
+		dialogue('hello world');
 	}
 
 	function onCRFComplete()
@@ -47,6 +46,12 @@ class PlayState extends FlxState
 			trace('[[track0]]');
 			cutting_room_floor.play();
 		});
+	}
+
+	function dialogue(dialog:String)
+	{
+		saleswoman_text.resetText(dialog);
+		saleswoman_text.start(0.05);
 	}
 
 	override public function update(elapsed:Float)
