@@ -19,6 +19,17 @@ class PlayState extends FlxState
 	var sequence_entry:Int = -1;
 	var sequence_can_continue:Bool = false;
 
+	var line_wait:Float = 0.5;
+
+	var sequence_complete(get, never):Bool;
+
+	function get_sequence_complete():Bool
+	{
+		// trace('$sequence_entry');
+		// trace('${sequence.lines.length}');
+		return sequence_entry >= sequence.lines.length;
+	}
+
 	override public function create()
 	{
 		super.create();
@@ -50,6 +61,8 @@ class PlayState extends FlxState
 		saleswoman_text.finishSounds = true;
 
 		sequence = new DialogueSequence('intro-new');
+		sequence_entry = -1;
+
 		continueSequence();
 	}
 
@@ -72,29 +85,28 @@ class PlayState extends FlxState
 	function onTypingComplete()
 	{
 		sequence_can_continue = true;
+
+		if (!sequence_complete)
+			FlxTimer.wait(line_wait, continueSequence);
 	}
 
 	function continueSequence()
 	{
 		sequence_entry++;
-		if (sequence_entry < sequence.lines.length - 1)
-			dialogue(sequence.lines[sequence_entry]);
-		else
-		{
+
+		if (sequence_complete)
 			onSequenceComplete();
-		}
+		else
+			dialogue(sequence.lines[sequence_entry]);
 	}
 
-	function onSequenceComplete() {}
+	function onSequenceComplete()
+	{
+		trace('[[fatality]]');
+	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
-		if (sequence_can_continue)
-		{
-			if (FlxG.keys.justPressed.ENTER)
-				continueSequence();
-		}
 	}
 }
