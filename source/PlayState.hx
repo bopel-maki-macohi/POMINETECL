@@ -1,5 +1,7 @@
 package;
 
+import flixel.util.FlxTimer;
+import flixel.sound.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -7,6 +9,8 @@ import flixel.FlxState;
 class PlayState extends FlxState
 {
 	var saleswoman:FlxSprite;
+
+	var cutting_room_floor:FlxSound;
 
 	override public function create()
 	{
@@ -18,6 +22,18 @@ class PlayState extends FlxState
 
 		saleswoman.screenCenter(X);
 		saleswoman.y = FlxG.height - saleswoman.height;
+
+		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
+		onCRFComplete();
+	}
+
+	function onCRFComplete()
+	{
+		FlxTimer.wait(FlxG.random.float(0.5, 2), function()
+		{
+			trace('[[track0]]');
+			cutting_room_floor.fadeIn(1);
+		});
 	}
 
 	override public function update(elapsed:Float)
