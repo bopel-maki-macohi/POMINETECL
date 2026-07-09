@@ -17,7 +17,6 @@ class PlayState extends FlxState
 
 	var sequence:DialogueSequence;
 	var sequence_entry:Int = -1;
-	var sequence_can_continue:Bool = false;
 
 	var line_wait:Float = 0.5;
 
@@ -77,15 +76,12 @@ class PlayState extends FlxState
 
 	function dialogue(dialog:String)
 	{
-		sequence_can_continue = false;
 		saleswoman_text.resetText(dialog);
 		saleswoman_text.start(0.05, false, false, [], onTypingComplete);
 	}
 
 	function onTypingComplete()
 	{
-		sequence_can_continue = true;
-
 		if (!sequence_complete)
 			FlxTimer.wait(line_wait, continueSequence);
 	}
@@ -103,6 +99,10 @@ class PlayState extends FlxState
 	function onSequenceComplete()
 	{
 		trace('[[fatality]]');
+		FlxTimer.wait(line_wait * 2, function()
+		{
+			dialogue('');
+		});
 	}
 
 	override public function update(elapsed:Float)
