@@ -43,7 +43,7 @@ class PlayState extends FlxState
 		saleswoman.y = FlxG.height - saleswoman.height;
 
 		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
-		onCRFComplete();
+		cutting_room_floor.play();
 
 		FlxG.sound.list.add(cutting_room_floor);
 
