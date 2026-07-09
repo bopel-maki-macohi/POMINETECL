@@ -25,6 +25,7 @@ class PlayState extends FlxState
 
 		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
 		onCRFComplete();
+		FlxG.sound.list.add(cutting_room_floor);
 	}
 
 	function onCRFComplete()
@@ -32,7 +33,7 @@ class PlayState extends FlxState
 		FlxTimer.wait(FlxG.random.float(0.5, 2), function()
 		{
 			trace('[[track0]]');
-			cutting_room_floor.fadeIn(1);
+			cutting_room_floor.play();
 		});
 	}
 
