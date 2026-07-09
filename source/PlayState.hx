@@ -15,6 +15,10 @@ class PlayState extends FlxState
 
 	var cutting_room_floor:FlxSound;
 
+	var sequence:DialogueSequence;
+	var sequence_entry:Int = -1;
+	var sequence_can_continue:Bool = false;
+
 	override public function create()
 	{
 		super.create();
@@ -45,7 +49,8 @@ class PlayState extends FlxState
 		];
 		saleswoman_text.finishSounds = true;
 
-		dialogue('HELLO EVERY [[HYPERLINK BLOCKED!]]');
+		sequence = new DialogueSequence('intro-new');
+		continueSequence();
 	}
 
 	function onCRFComplete()
@@ -59,14 +64,37 @@ class PlayState extends FlxState
 
 	function dialogue(dialog:String)
 	{
+		sequence_can_continue = false;
 		saleswoman_text.resetText(dialog);
 		saleswoman_text.start(0.05, false, false, [], onTypingComplete);
 	}
 
-	function onTypingComplete() {}
+	function onTypingComplete()
+	{
+		sequence_can_continue = true;
+	}
+
+	function continueSequence()
+	{
+		sequence_entry++;
+		if (sequence_entry < sequence.lines.length - 1)
+			dialogue(sequence.lines[sequence_entry]);
+		else
+		{
+			onSequenceComplete();
+		}
+	}
+
+	function onSequenceComplete() {}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		if (sequence_can_continue)
+		{
+			if (FlxG.keys.justPressed.ENTER)
+				continueSequence();
+		}
 	}
 }
