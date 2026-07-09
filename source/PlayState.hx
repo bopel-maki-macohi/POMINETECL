@@ -98,14 +98,11 @@ class PlayState extends FlxState
 	{
 		saleswoman_text.resetText(dialog);
 		saleswoman_text.start(0.05, false, false, [], onTypingComplete);
-
-		if (dialog.length < 1) {}
 	}
 
 	function onTypingComplete()
 	{
 		if (!sequence_complete) FlxTimer.wait(line_wait, continueSequence);
-		else openSubState(new OptionSelect(sequence.line_file));
 	}
 
 	function onSequenceComplete()
@@ -114,6 +111,7 @@ class PlayState extends FlxState
 		FlxTimer.wait(line_wait * 2, function()
 		{
 			dialogue('');
+			openSubState(new OptionSelect(sequence.line_file));
 		});
 	}
 }
