@@ -33,8 +33,10 @@ class PlayState extends FlxState
 
 		FlxG.sound.list.add(cutting_room_floor);
 
-		saleswoman_text = new FlxTypeText(0, 0, 0, 'Superman', 16);
+		saleswoman_text = new FlxTypeText(0, 0, FlxG.width, 'Superman', 16);
 		add(saleswoman_text);
+
+		saleswoman_text.alignment = CENTER;
 
 		dialogue('hello world');
 	}
