@@ -16,14 +16,9 @@ class Save
 
 	public static function init()
 	{
-		if (FlxG.save.isBound)
-			return;
-
 		FlxG.save.bind('Pominetecl', 'Maki');
 
-		data ??= {
-			first_time: null,
-		};
+		FlxG.save.data.game ??= {};
 
 		data.first_time ??= true;
 
@@ -31,12 +26,15 @@ class Save
 		{
 			save();
 		});
+
+		trace(data);
 	}
 
 	static function save()
 	{
 		data.first_time = false;
 
+		trace(data);
 		FlxG.save.flush();
 	}
 }
