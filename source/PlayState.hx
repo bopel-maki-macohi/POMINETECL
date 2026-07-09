@@ -51,8 +51,6 @@ class PlayState extends FlxState
 		saleswoman_text.finishSounds = true;
 
 		sequence = new DialogueSequence('intro-new');
-		sequence_entry = -1;
-
 		startSequence('intro-new');
 
 		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
