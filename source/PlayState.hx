@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.text.FlxTypeText;
 import flixel.util.FlxTimer;
 import flixel.sound.FlxSound;
 import flixel.FlxG;
@@ -9,6 +10,8 @@ import flixel.FlxState;
 class PlayState extends FlxState
 {
 	var saleswoman:FlxSprite;
+
+	var saleswoman_text:FlxTypeText;
 
 	var cutting_room_floor:FlxSound;
 
@@ -29,6 +32,12 @@ class PlayState extends FlxState
 		onCRFComplete();
 
 		FlxG.sound.list.add(cutting_room_floor);
+
+		saleswoman_text = new FlxTypeText(0, 0, 0, 'Superman', 16);
+		add(saleswoman_text);
+
+		saleswoman_text.resetText('Supperman');
+		saleswoman_text.start(0.05);
 	}
 
 	function onCRFComplete()
