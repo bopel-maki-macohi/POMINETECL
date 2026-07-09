@@ -12,5 +12,7 @@ class Paths
 
 	public static function text(path:String):String return data('$path.txt');
 
-	public static function getText(path:String):String return Assets.getText(text('$path'));
+	public static function getText(path:String):String return Assets.getText('$path');
+
+	public static function exists(path:String):Bool return Assets.exists('$path');
 }

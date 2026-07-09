@@ -50,13 +50,15 @@ class PlayState extends FlxState
 		];
 		saleswoman_text.finishSounds = true;
 
-		sequence = new DialogueSequence('intro-new');
-		startSequence('intro-new');
+		sequence = new DialogueSequence(null);
 
 		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
 		cutting_room_floor.play();
 
 		FlxG.sound.list.add(cutting_room_floor);
+
+		if (Save.data.first_time) startSequence('intro-new');
+		else startSequence('intro-continue');
 	}
 
 	function startSequence(seq:String)
@@ -80,10 +82,8 @@ class PlayState extends FlxState
 	{
 		sequence_entry++;
 
-		if (sequence_complete)
-			onSequenceComplete();
-		else
-			dialogue(sequence.lines[sequence_entry]);
+		if (sequence_complete) onSequenceComplete();
+		else dialogue(sequence.lines[sequence_entry]);
 	}
 
 	function dialogue(dialog:String)
@@ -94,8 +94,7 @@ class PlayState extends FlxState
 
 	function onTypingComplete()
 	{
-		if (!sequence_complete)
-			FlxTimer.wait(line_wait, continueSequence);
+		if (!sequence_complete) FlxTimer.wait(line_wait, continueSequence);
 	}
 
 	function onSequenceComplete()

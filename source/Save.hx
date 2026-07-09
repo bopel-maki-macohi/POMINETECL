@@ -1,7 +1,10 @@
 import lime.app.Application;
 import flixel.FlxG;
 
-typedef SaveData = {}
+typedef SaveData =
+{
+	var first_time:Null<Bool>;
+}
 
 class Save
 {
@@ -18,7 +21,11 @@ class Save
 
 		FlxG.save.bind('Pominetecl', 'Maki');
 
-		data ??= {};
+		data ??= {
+			first_time: null,
+		};
+
+		data.first_time ??= true;
 
 		Application.current.onExit.add(function(l)
 		{
@@ -28,6 +35,8 @@ class Save
 
 	static function save()
 	{
+		data.first_time = false;
+
 		FlxG.save.flush();
 	}
 }
