@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
@@ -15,7 +16,8 @@ class PlayState extends FlxState
 		saleswoman.loadGraphic(Paths.texture('pominetecl'));
 		add(saleswoman);
 
-		saleswoman.screenCenter();
+		saleswoman.screenCenter(X);
+		saleswoman.y = FlxG.height - saleswoman.height;
 	}
 
 	override public function update(elapsed:Float)
