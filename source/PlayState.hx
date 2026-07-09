@@ -17,7 +17,9 @@ class PlayState extends FlxState
 		super.create();
 
 		saleswoman = new FlxSprite();
-		saleswoman.loadGraphic(Paths.texture('pominetecl'));
+		saleswoman.loadGraphic(Paths.texture('pominetecl'), true, 256, 256);
+		saleswoman.animation.add('idle', [0]);
+		saleswoman.animation.play('idle');
 		add(saleswoman);
 
 		saleswoman.screenCenter(X);
@@ -25,6 +27,7 @@ class PlayState extends FlxState
 
 		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
 		onCRFComplete();
+
 		FlxG.sound.list.add(cutting_room_floor);
 	}
 
