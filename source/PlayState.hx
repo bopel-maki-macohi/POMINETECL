@@ -38,7 +38,14 @@ class PlayState extends FlxState
 
 		saleswoman_text.alignment = CENTER;
 
-		dialogue('hello world');
+		saleswoman_text.sounds = [
+			new FlxSound().loadEmbedded(Paths.audio('txt-saleswoman1')),
+			new FlxSound().loadEmbedded(Paths.audio('txt-saleswoman2')),
+			new FlxSound().loadEmbedded(Paths.audio('txt-saleswoman3')),
+		];
+		saleswoman_text.finishSounds = true;
+
+		dialogue('HELLO EVERY [[HYPERLINK BLOCKED!]]');
 	}
 
 	function onCRFComplete()
