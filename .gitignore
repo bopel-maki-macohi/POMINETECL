@@ -3,3 +3,8 @@ dump/
 .haxelib/
 
 .DS_Store
+
+**/Ableton Project Info/
+**/Backup/
+**/**.ini
+**.asd
