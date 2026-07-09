@@ -30,6 +30,8 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		Save.init();
+
 		saleswoman = new Pominetecl();
 		add(saleswoman);
 

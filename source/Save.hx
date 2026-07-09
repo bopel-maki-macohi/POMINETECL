@@ -13,6 +13,9 @@ class Save
 
 	public static function init()
 	{
+		if (FlxG.save.isBound)
+			return;
+
 		FlxG.save.bind('Pominetecl', 'Maki');
 
 		data ??= {};
