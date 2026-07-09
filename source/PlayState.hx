@@ -9,6 +9,8 @@ import flixel.FlxState;
 
 class PlayState extends FlxState
 {
+	public static var played_intro:Bool = false;
+
 	var saleswoman:Pominetecl;
 	var saleswoman_text:FlxTypeText;
 
@@ -30,7 +32,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		Save.init();
+		if (Save.data == null) Save.init();
 
 		saleswoman = new Pominetecl();
 		add(saleswoman);
@@ -57,8 +59,13 @@ class PlayState extends FlxState
 
 		FlxG.sound.list.add(cutting_room_floor);
 
-		if (Save.data.first_time) startSequence('intro-new');
-		else startSequence('intro-continue');
+		if (!played_intro)
+		{
+			played_intro = true;
+
+			if (Save.data.first_time) startSequence('intro-new');
+			else startSequence('intro-continue');
+		}
 	}
 
 	function startSequence(seq:String)
@@ -103,6 +110,7 @@ class PlayState extends FlxState
 		FlxTimer.wait(line_wait * 2, function()
 		{
 			dialogue('');
+			openSubState(new OptionSelect(sequence.line_file));
 		});
 	}
 }

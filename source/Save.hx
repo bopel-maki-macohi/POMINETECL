@@ -10,9 +10,13 @@ class Save
 {
 	public static var data(get, set):SaveData;
 
-	static function get_data():SaveData return FlxG.save.data.game;
+	static function get_data():SaveData return FlxG.save?.data?.game ?? null;
 
-	static function set_data(data:SaveData):SaveData return FlxG.save.data.game = data;
+	static function set_data(data:SaveData):SaveData
+	{
+		if (!FlxG.save.isBound) return null;
+		return FlxG.save.data.game = data;
+	}
 
 	public static function init()
 	{

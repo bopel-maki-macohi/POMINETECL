@@ -1,8 +1,8 @@
-class DialogueSequence extends LineContainer
+class OptionContainer extends LineContainer
 {
 	override public function new(?line_file:String)
 	{
-        path_prefix = 'seq/';
+		path_prefix = 'opt/';
 		super(line_file);
 	}
 }
