@@ -9,8 +9,7 @@ import flixel.FlxState;
 
 class PlayState extends FlxState
 {
-	var saleswoman:FlxSprite;
-
+	var saleswoman:Pominetecl;
 	var saleswoman_text:FlxTypeText;
 
 	var cutting_room_floor:FlxSound;
@@ -33,19 +32,11 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		saleswoman = new FlxSprite();
-		saleswoman.loadGraphic(Paths.texture('pominetecl'), true, 256, 256);
-		saleswoman.animation.add('idle', [0]);
-		saleswoman.animation.play('idle');
+		saleswoman = new Pominetecl();
 		add(saleswoman);
 
 		saleswoman.screenCenter(X);
 		saleswoman.y = FlxG.height - saleswoman.height;
-
-		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
-		cutting_room_floor.play();
-
-		FlxG.sound.list.add(cutting_room_floor);
 
 		saleswoman_text = new FlxTypeText(0, 0, FlxG.width, 'Superman', 16);
 		add(saleswoman_text);
@@ -62,6 +53,19 @@ class PlayState extends FlxState
 		sequence = new DialogueSequence('intro-new');
 		sequence_entry = -1;
 
+		startSequence('intro-new');
+
+		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
+		cutting_room_floor.play();
+
+		FlxG.sound.list.add(cutting_room_floor);
+	}
+
+	function startSequence(seq:String)
+	{
+		sequence.load(seq);
+
+		sequence_entry = -1;
 		continueSequence();
 	}
 
@@ -74,6 +78,16 @@ class PlayState extends FlxState
 		});
 	}
 
+	function continueSequence()
+	{
+		sequence_entry++;
+
+		if (sequence_complete)
+			onSequenceComplete();
+		else
+			dialogue(sequence.lines[sequence_entry]);
+	}
+
 	function dialogue(dialog:String)
 	{
 		saleswoman_text.resetText(dialog);
@@ -84,16 +98,6 @@ class PlayState extends FlxState
 	{
 		if (!sequence_complete)
 			FlxTimer.wait(line_wait, continueSequence);
-	}
-
-	function continueSequence()
-	{
-		sequence_entry++;
-
-		if (sequence_complete)
-			onSequenceComplete();
-		else
-			dialogue(sequence.lines[sequence_entry]);
 	}
 
 	function onSequenceComplete()
