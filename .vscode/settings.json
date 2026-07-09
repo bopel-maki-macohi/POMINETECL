@@ -1,0 +1,6 @@
+{
+	"search.exclude": {
+		"export/**/*.*": true
+	},
+	"git.postCommitCommand": "sync"
+}
