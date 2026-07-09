@@ -2,5 +2,6 @@
 	"search.exclude": {
 		"export/**/*.*": true
 	},
-	"git.postCommitCommand": "sync"
+	"git.postCommitCommand": "sync",
+	"lime.defaultTargetConfiguration": "Windows"
 }
