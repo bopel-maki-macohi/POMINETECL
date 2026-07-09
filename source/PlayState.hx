@@ -23,8 +23,6 @@ class PlayState extends FlxState
 
 	function get_sequence_complete():Bool
 	{
-		// trace('$sequence_entry');
-		// trace('${sequence.lines.length}');
 		return sequence_entry >= sequence.lines.length;
 	}
 
@@ -105,10 +103,5 @@ class PlayState extends FlxState
 		{
 			dialogue('');
 		});
-	}
-
-	override public function update(elapsed:Float)
-	{
-		super.update(elapsed);
 	}
 }
