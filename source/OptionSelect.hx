@@ -61,4 +61,24 @@ class OptionSelect extends FlxSubState
 			option_text.color = (option_text.ID == current_selection) ? FlxColor.YELLOW : FlxColor.WHITE;
 		}
 	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (FlxG.keys.anyJustPressed([W, UP])) changeSelection(-1);
+		if (FlxG.keys.anyJustPressed([S, DOWN])) changeSelection(1);
+	}
+
+	function changeSelection(amount:Int)
+	{
+		current_selection += amount;
+
+		if (current_selection < 0) current_selection = options.lines.length - 1;
+		if (current_selection > options.lines.length - 1) current_selection = 0;
+
+		var noise = FlxG.sound.play(Paths.audio('snd_noise'));
+
+		updateTexts();
+	}
 }

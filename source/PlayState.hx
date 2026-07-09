@@ -59,6 +59,8 @@ class PlayState extends FlxState
 
 		FlxG.sound.list.add(cutting_room_floor);
 
+		persistentUpdate = true;
+
 		if (!played_intro)
 		{
 			trace('[[intro]]');
