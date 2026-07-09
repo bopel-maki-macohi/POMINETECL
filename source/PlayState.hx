@@ -16,7 +16,7 @@ class PlayState extends FlxState
 
 	var cutting_room_floor:FlxSound;
 
-	var sequence:DialogueSequence;
+	var sequence:DialogueContainer;
 	var sequence_entry:Int = -1;
 
 	var line_wait:Float = 0.5;
@@ -52,7 +52,7 @@ class PlayState extends FlxState
 		];
 		saleswoman_text.finishSounds = true;
 
-		sequence = new DialogueSequence(null);
+		sequence = new DialogueContainer(null);
 
 		cutting_room_floor = new FlxSound().loadEmbedded(Paths.audio('cutting'), false, false, onCRFComplete);
 		cutting_room_floor.play();
@@ -61,6 +61,7 @@ class PlayState extends FlxState
 
 		if (!played_intro)
 		{
+			trace('[[intro]]');
 			played_intro = true;
 
 			if (Save.data.first_time) startSequence('intro-new');
@@ -97,11 +98,14 @@ class PlayState extends FlxState
 	{
 		saleswoman_text.resetText(dialog);
 		saleswoman_text.start(0.05, false, false, [], onTypingComplete);
+
+		if (dialog.length < 1) {}
 	}
 
 	function onTypingComplete()
 	{
 		if (!sequence_complete) FlxTimer.wait(line_wait, continueSequence);
+		else openSubState(new OptionSelect(sequence.line_file));
 	}
 
 	function onSequenceComplete()
@@ -110,7 +114,6 @@ class PlayState extends FlxState
 		FlxTimer.wait(line_wait * 2, function()
 		{
 			dialogue('');
-			openSubState(new OptionSelect(sequence.line_file));
 		});
 	}
 }

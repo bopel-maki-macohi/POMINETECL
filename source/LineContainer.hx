@@ -8,8 +8,9 @@ class LineContainer
 
 	var path_prefix:String = '';
 
-	public function new(?line_file:String)
+	public function new(path_prefix:String, ?line_file:String)
 	{
+		this.path_prefix = path_prefix;
 		load(line_file);
 	}
 
@@ -18,10 +19,14 @@ class LineContainer
 		this.line_file = line_file;
 		lines = [];
 
-		final path = Paths.text('$path_prefix$line_file');
+		final path = Paths.text('${path_prefix ?? ''}${line_file}');
 
 		if (line_file == null) return;
-		if (!Paths.exists(path)) return;
+		if (!Paths.exists(path))
+		{
+			trace('$path does not exist');
+			return;
+		}
 
 		var fileContent = Paths.getText(path);
 

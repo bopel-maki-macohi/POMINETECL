@@ -1,8 +1,0 @@
-class DialogueSequence extends LineContainer
-{
-	override public function new(?line_file:String)
-	{
-        path_prefix = 'seq/';
-		super(line_file);
-	}
-}
