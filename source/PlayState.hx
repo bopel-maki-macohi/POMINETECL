@@ -51,8 +51,10 @@ class PlayState extends FlxState
 	function dialogue(dialog:String)
 	{
 		saleswoman_text.resetText(dialog);
-		saleswoman_text.start(0.05);
+		saleswoman_text.start(0.05, false, false, [], onTypingComplete);
 	}
+
+	function onTypingComplete() {}
 
 	override public function update(elapsed:Float)
 	{
